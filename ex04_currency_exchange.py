@@ -1,7 +1,5 @@
 # Personal notes
 '''
-
-
 There are 3 kinds of built-in numbers in Python.
 
 1. <int>   1234, -10, 20201278
@@ -60,7 +58,7 @@ Here are his specifications for the app:
 '''
 
 # 1. Estimate value after exchange
-'''
+'''C
 Create the exchange_money() function, taking 2 parameters:
 
     budget : The amount of money you are planning to exchange.
