@@ -1,5 +1,7 @@
 # Personal notes
 '''
+This learning exercise helped evolve your knowledge of Numbers.
+
 There are 3 kinds of built-in numbers in Python.
 
 1. <int>   1234, -10, 20201278
