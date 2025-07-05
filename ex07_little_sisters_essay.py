@@ -135,207 +135,142 @@ Just the place for a Snark! I have said it thrice:
 ...
 '\n"Just the place for a 🐲!" the Bellman cried,\n   As he landed his crew with care;\nSupporting each man on the top of the tide\n   By a finger entwined in his hair.\n\n"Just the place for a 🐲! I have said it twice:\n   That alone should encourage the crew.\nJust the place for a 🐲! I have said it thrice:\n   What I tell you three times is true."\n'
 """
+
 # Instructions
 """
-You are helping your younger sister with her English vocabulary
-homework, which she is finding very tedious.
+In this exercise you are helping your younger sister edit her paper
+for school.
 
-Her class is learning to create new words by adding prefixes and
-suffixes.
+The teacher is looking for correct punctuation, grammar and excelent
+word choice.
 
-Given a set of words, the teacher is looking for correctly
-transformed words with correct spelling by adding the prefix to
-the beggining and the suffix to the ending.
-
-The assignment has four activities, each with a set of text or
-words to work with.
+You have four tasks to clean up and modify strings.
 """
 
-# 1. Add a prefix to a word
+# 1. Capitalize the title of the paper
 """
-One of the most common prefixes in English is 'un', meaning 'not'.
-In this activity, your sister needs to make negative, or 'not' words
-by adding 'un' to them.
+Any good paper needs a properly formatted title.
 
-Implement the add_prefix_un(<word>) function that takes word as a
-parameter and returns a new un prefixed word.
+Implement the function capitalize_title(<title>) which takes a title
+<str> as a parameter and capitalizes the first letter of each word.
+
+This function should return a <str> in title case.
 """
 
 
-def add_prefix_un(word):
+def capitalize_title(title):
     """
-    Adds the prefix 'un' to the beginning of the passed-in word.
+    Capitalizes the first letter of each word in the passed-in title.
 
     Args:
-       word (str): Word to which the 'un' prefix will be added.
+        title (str): The title of the paper.
 
     Returns:
-       str: 'un' + 'word'
+        str: The title of the paper with the first letter of each word capitalized.
 
     Examples:
-       >>> add_prefix_un(funny):
-       'unfunny'
-       >>> add_prefix_un(manageable):
-       'unmanageable'
+        >>> capitalize_title('my hobbies')
+        'My Hobbies'
     """
-    return "un" + word
+    return title.title()
+
+    # Improved version
+    """
+    If we pass the string "john's car" to capitalize_title(), it becomes
+    "John'S Car".
+
+    To avoid this, we could do the following:
+    return ' '.join(word.capitalize() for word in title.split())
+
+    title.split()   -> ["john's", "car"]
+    word.capitalize -> ["John's", "Car"]
+    ' '.join()      -> John's Car
+    .                        ^ inserts the ' ' (space)
+    """
 
 
-# 2. Add prefixes to word groups
+# 2. Check if each sentence ends with a period
 """
-There are four more common prefixes that your sister's class is
-studying:
-* 'en',    meaning to 'put into' or 'cover with')
-* 'pre',   meaning 'before' or 'forward')
-* 'auto',  meaning 'self' or 'same')
-* 'inter', meaning 'between' or 'among')
+You want to make sure that the punctuation in the paper is perfect.
 
-In this exercise, the class is creating groups of vocabulary words
-using these prefixes, so they can be studdied together.
-
-Each prefix comes in a list with common words it's used with. The
-students need to apply the prefix and produce a string that shows
-the prefix applied to all of the words.
-
-Implement the make_word_groups(<vocab_words>) function that takes a
-vocab_words as a parameter in the following form:
-[<prefix>, <word_1>, <word_2>, ..., <word_n>]
-and returns a string with the prefix applied to each word <w> that
-looks like:
-<prefix> :: <prefix><word_1> :: <prefix><word_2> :: ... :: <prefix><word_n>
+Implement the function check_sentence_ending(<sentence>) that takes
+<sentence> as a parameter. This function shoul return a bool.
 """
 
 
-def make_word_groups(vocab_words):
+def check_sentence_ending(sentence):
     """
-    Adds a prefix to a list of words.
+    Check if the passed-in sentence ends with a period (.).
 
     Args:
-       vocab_words(list): List of prefix and words to which the prefix will be added.
-       ['<prefix>', '<word_1>', ..., '<word_n>']
+        sentence (str): The sentence to be checked.
 
     Returns:
-       str: Words with the prefix applied and grouped in the following pattern:
-       '<prefix> :: <prefix><word_1> :: ... :: <prefix><word_n>'
+        bool: True if the sentence ends with '.', False otherwise.
 
     Examples:
-       >>> make_word_groups(['en', 'close', 'joy', 'lighten'])
-       'en :: enclose :: enjoy :: enlighten'
-       >>> make_word_groups(['pre', 'serve', 'dispose', 'position'])
-       'pre :: preserve :: predispose :: preposition'
+        >>> check_sentence_ending('This is the end.')
+        True
     """
-    prefix = vocab_words[0]
-    # this is called 'list comprehension'
-    words = [prefix + word for word in vocab_words[1:]]
-    # vocab_words[1:] -> [<word_1>, <word_2>, ..., <word_n>]
-    # for word in     -> gets <word_1>, then <word_2>... and stops after <word_n>
-    # prefix + word   -> applies an uniformized action to each <word_x>
-    # [ ]             -> atributes a list containing all the elements to 'words'
-    return ' :: '.join([prefix] + words)
-    # .join() requires lists. [prefix] is used to transform prefix (str) to a list
-    #                         of 1 element
-
-    # Really elegant solution by bobahop
-    """
-    return (' :: ' + vocab_words[0]).join(vocab_words)
-
-    This solution astonished me for its elegance.
-    .join(vocab_words)        -> <prefix>, <word_1>, <word_2>...
-    (' :: ' + vocab_words[0]) -> adds ' :: <prefix>' between all elements
-    Which results in
-    <prefix> :: <prefix><word_1> :: ...
-
-    Really cool! But it's worth stating that the words in vocab_words stay the same,
-    without the prefix added to elements in the list.
-    """
+    return sentence.endswith('.')
 
 
-# 3. Remove a suffix from a word
+# 3. Clean up spacing
 """
-'ness' is a common suffix that means 'state of being'. In this activity, your sister
-needs to find the original root word by removing the 'ness' suffix.
+To make the paper look professional, unecessary spacing needs to be
+removed.
 
-But of course there are pesky spelling rules:
-if the root word originally ended in a consonant followed by an 'y', then the 'y'
-needs to change to 'i'.
+Implement the function clean_up_spacing() that takes sentence as a
+parameter.
 
-Removing 'ness' needs to restore the 'y' in those root words.
-e.g. 'happiness' -> 'happy'
-
-Implement the remove_suffix_ness(<word>) function that takes in a word and returns the
-root word without the 'ness' suffix.
+The function should remove extra whitespace at both the beginning and
+the end of the sentence, returning a new, updated sentence str.
 """
 
 
-def remove_suffix_ness(word):
+def clean_up_spacing(sentence):
     """
-    Returns the passed-in word without the suffix 'ness'.
+    Removes extra whitespace at both the beginning and the end of
+    the passed-in sentence.
 
     Args:
-       word (str): Word with the suffix 'ness' to be removed.
+        sentence (str): Sentence to be formated.
 
     Returns:
-       str: Word without the 'ness' suffix.
+        str: A new string formatted without unnecessary whitespaces.
 
-    Examples:
-       >>> remove_suffix_ness('happiness'):
-       'happy'
-       >>> remove_suffix_ness('delightfulness'):
-       'delightful'
+    Example:
+        >>> clean_up_spacing('   The day is cold.      ')
+        'The day is cold.'
     """
-    root = word[:-4]   # removes 'ness'
-    if root.endswith('i'):
-        root = root[:-1] + 'y'
-    return root
+    return sentence.strip()   # .strip() removes whitespace by default
 
 
-# 4. Extract and transform a word
+# 4. Replace words with a synonym
 """
-Suffixes are often used to change the part of speech a word is
-assigned to. A common practice in English is "verbing", or
-"verbifying" - where an adjective becomes a verb by adding an
-'en' suffix.
+To make the paper even better, you can replace some of the adjectives with
+their synonyms.
 
-In this task, your sister is going to practice "verbing" words
-by extracting an adjective from a sentence and turning it into
-a verb.
-
-Fortunatelly, all the words that need to be transformed here are
-"regular" - meaning they don't need spelling changes to add the
-suffix.
-
-Implement the adjective_to_verb(<sentence>, <index>) function that
-takes two parameters.
-
-A <sentence> using the vocabulary word and the <index> of the word,
-once that sentence is split apart. The function should return the
-extracted adjective as a verb.
+Write the function replace_word_choice() that takes <sentence>, <old_word>
+and <new_word> as parameters. This function should replace all instances
+of <old_word> with <new_word> and return a new string with the updated sentence.
 """
 
 
-def adjective_to_verb(sentence, index):
+def replace_word_choice(sentence, old_word, new_word):
     """
-    Transforms a given word in a passed-in sentence into a verb by
-    adding 'en' to its end.
+    Replaces all occurrences of a word with another word in a passed-in string.
 
     Args:
-       sentence (str): Sentence that contains the word to be "verbified".
-       index (int): 0-based index of the word in the passed-in sentence.
+        sentence (str): The sentence where the word will be replaced.
+        old_word (str): Word to be replaced.
+        new_word (str): Word to take its place.
 
     Returns:
-       str: The word at the given index transformed into a verb by adding 'en'.
+        str: A new string with the old word replaced by the new word.
 
-    Examples:
-
-    >>> adjective_to_verb('I need to make that bright.', -1 )
-    'brighten'
-    >>> adjective_to_verb('It got dark as the sun set.', 2)
-    'darken'
+    Example:
+        >>> replace_word_choice('The cake is good', 'good', 'a lie')
+        'The cake is a lie'
     """
-    words = sentence.split()   # splits the str sentence into a list of words
-    word = words[index].strip('.,;!?')
-    # words[index] gets the word to be "verbified"
-    # .strip('.,;!?') removes the most common punctuation symbols
-    # a better solution might would've been adding the library string
-    # and then using .strip(string.punctuation)
-    return word + 'en'
+    return sentence.replace(old_word, new_word)
